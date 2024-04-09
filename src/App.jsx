@@ -1,14 +1,12 @@
 function App() {
   return (
     <div>
-      <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. A, laudantium.
-        Cumque, itaque asperiores! Veritatis nobis velit quisquam sunt,
-        perferendis deleniti temporibus cupiditate et quam libero sequi non,
-        architecto, praesentium enim
-
-        
-      </p>
+      <nav className="bg-[#4338ca] w-full pt-[50px] pb-[50px] rounded-bl-full items-center text-center">
+        <div className="flex flex-row justify-around ">
+          <h1 className="text-[30px] font-bold text-white">devjobs</h1>
+          <div>lllll</div>
+        </div>
+      </nav>
     </div>
   );
 }
