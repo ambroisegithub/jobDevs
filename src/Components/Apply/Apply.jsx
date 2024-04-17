@@ -33,9 +33,9 @@ function Apply() {
         </div>
 <section>
 
-<main className="pr-[30px] pl-[30px] mt-10 w-full p-2  lg:pr-[190px] lg:pl-[190px] md:pr-[70px] md:pl-[70px] flex justify-center">
+<main className="mt-10 w-full p-2   flex justify-center">
 
-<div className="flex flex-col h-auto w-[62%] bg-slate-700 p-10">
+<div className="flex flex-col h-auto w-[50%] bg-slate-700 p-10">
  <div className="flex flex-row items-center">
    <div className="w-full">
    <div className=" text-slate-400 gap-2">
@@ -186,11 +186,14 @@ function Apply() {
 </div>
 </main>
 
-<div className=" flex justify-center w-full  bg-slate-700 p-10 mt-10 items-center">
+<div className=" flex justify-center w-full  bg-slate-700 p-10 mt-10 items-center pr-0 pl-0">
 
-  <div className="flex  bg-white">
-    <h1 className="">Senior Software Engineer</h1>
-    <button className="text-white font-bold bg-[#5964E0] w-[10%] text-[20px] p-5">Apply Job</button>
+  <div className="flex  w-[50%] items-center justify-between">
+    <div>
+    <h1 className="text-white font-bold">Senior Software Engineer</h1>
+    <p className="text-slate-500 pt-1 font-bold text-[15px]">So Digital Inc.</p>
+    </div>
+    <button className="flex text-white  bg-[#5964E0] text-[20px] p-2 pr-5 pl-5 rounded-md">Apply Job</button>
   </div>
   
 </div>
