@@ -1,8 +1,23 @@
 import { MdLightMode } from "react-icons/md";
 import { MdDarkMode } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
-
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 function Apply() {
+  const { id } = useParams(); // Get the job ID from the URL
+  const [job, setJob] = useState(null); // State to store the job details
+
+  useEffect(() => {
+    // Fetch job details
+    fetch(`https://devjobsbackend.onrender.com/api/v1/job/jobs/${id}`)
+      .then((response) => response.json())
+      .then((data) => setJob(data))
+      .catch((error) => console.error("Error fetching job:", error));
+  }, [id]); // Depend on the job ID to refetch if it changes
+
+  if (!job) {
+    return <div>Loading job details...</div>;
+  }
   return (
     <div>
       <div className="bg-[#121721] h-[100vh] overflow-x-hidden">
@@ -39,18 +54,18 @@ function Apply() {
             <div className="flex flex-col h-auto w-[50%] bg-slate-700 p-10">
               <div className="flex flex-row items-center">
                 <div className="w-full">
-                  <div className=" text-slate-400 gap-2">
-                    <span>1w ago</span>
+                  <div className="text-slate-400 gap-2">
+                    <span>{job.postedAt}</span>
                     <span className="font-bold mr-2 ml-2 text-3xl">.</span>
-                    <span>Part Time</span>
+                    <span>{job.contract}</span>
                   </div>
                   <div className="pt-2 pb-2">
-                    <h1 className="text-white font-bold text-[30px]">
-                      Senior Software Engineer
+                    <h1 className="text-white font-bold text-[20px]">
+                      {job.position}
                     </h1>
                   </div>
                   <div className="">
-                    <p className="text-[#5964E0]">United Kingdom</p>
+                    <p className="text-[#5964E0]">{job.location}</p>
                   </div>
                 </div>
 
@@ -60,133 +75,42 @@ function Apply() {
                   </button>
                 </div>
               </div>
+
               <div className="pt-10">
-                <p className="text-slate-400  text-[18px]">
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                  Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In
-                  nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed
-                  pretium, ligula sollicitudin laoreet viverra, tortor libero
-                  sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis.
-                  Ut justo. Suspendisse potenti. Sed egestas, ante et vulputate
-                  volutpat, eros pede semper est, vitae luctus metus libero eu
-                  augue. Morbi purus libero, faucibus adipiscing, commodo quis,
-                  gravida id, est. Sed lectus. Praesent elementum hendrerit
-                  tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus
-                  a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc
-                  sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum
-                  et, dapibus sed, urna.
+                {/* description */}
+                <p className="text-slate-400  text-[18px]">{job.description}</p>
+              </div>
+              <div className="pt-10">
+                {/* Requirements */}
+                <h1 className="pb-5 font-bold text-[20px] text-white">
+                  Requirements
+                </h1>
+                <p className="text-slate-400 text-[18px]">
+                  {job.requirements.content}
                 </p>
+                {job.requirements.items.map((item, index) => (
+                  <div key={index} className="flex items-center gap-6">
+                    <p className="text-[#5964E0] text-[30px] font-bold">.</p>
+                    <p className="text-slate-400 text-[18px] w-full mt-4">
+                      {item}
+                    </p>
+                  </div>
+                ))}
               </div>
-
-              <div className="pt-10 pb-10 text-white">
-                <h1 className="pb-5 font-bold text-[20px]">Requirements</h1>
-
-                <p className="text-slate-400  text-[18px]">
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                  Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In
-                  nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed
-                  pretium, ligula sollicitudin laoreet viverra, tortor libero
-                  sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis.
-                  Ut justo. Suspendisse potenti. Sed egestas, ante et vulputate
-                  volutpat, eros pede semper est, vitae luctus metus libero eu
-                  augue. Morbi purus libero, faucibus adipiscing, commodo quis,
-                  gravida id, est. Sed lectus. Praesent elementum hendrerit
-                  tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus
-                  a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc
-                  sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum
-                  et, dapibus sed, urna.
-                </p>
-              </div>
-
-              <div className=" text-white flex">
-                <div className="flex items-center gap-6">
-                  <p className="text-[#5964E0]  text-[30px] font-bold">.</p>
-                  <p className="text-slate-400  text-[18px] w-full mt-4">
-                    Morbi interdum mollis sapien. Sed
-                  </p>
-                </div>
-              </div>
-
-              <div className=" text-white flex">
-                <div className="flex items-center gap-6">
-                  <p className="text-[#5964E0]  text-[30px] font-bold">.</p>
-                  <p className="text-slate-400  text-[18px] w-full mt-4">
-                    Morbi interdum mollis sapien. Sed
-                  </p>
-                </div>
-              </div>
-
-              <div className=" text-white flex">
-                <div className="flex items-center gap-6">
-                  <p className="text-[#5964E0]  text-[30px] font-bold">.</p>
-                  <p className="text-slate-400  text-[18px] w-full mt-4">
-                    Morbi interdum mollis sapien. Sed
-                  </p>
-                </div>
-              </div>
-
-              <div className=" text-white flex">
-                <div className="flex items-center gap-6">
-                  <p className="text-[#5964E0]  text-[30px] font-bold">.</p>
-                  <p className="text-slate-400  text-[18px] w-full mt-4">
-                    Morbi interdum mollis sapien. Sed
-                  </p>
-                </div>
-              </div>
-
+              {/* Job Assistance */}
               <div className="pt-10 pb-10 text-white">
                 <h1 className="pb-5 font-bold text-[20px]">What You Will Do</h1>
-
-                <p className="text-slate-400  text-[18px]">
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                  Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In
-                  nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed
-                  pretium, ligula sollicitudin laoreet viverra, tortor libero
-                  sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis.
-                  Ut justo. Suspendisse potenti. Sed egestas, ante et vulputate
-                  volutpat, eros pede semper est, vitae luctus metus libero eu
-                  augue. Morbi purus libero, faucibus adipiscing, commodo quis,
-                  gravida id, est. Sed lectus. Praesent elementum hendrerit
-                  tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus
-                  a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc
-                  sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum
-                  et, dapibus sed, urna.
+                <p className="text-slate-400 text-[18px]">
+                  {job.jobAssistance.content}
                 </p>
-              </div>
-
-              <div className=" text-white flex mb-4">
-                <div className="flex items-center gap-6">
-                  <p className="text-[#5964E0]  text-[20px] font-bold">1</p>
-                  <p className="text-slate-400  text-[18px] w-full">
-                    Morbi interdum mollis sapien. Sed
-                  </p>
-                </div>
-              </div>
-
-              <div className=" text-white flex mb-4">
-                <div className="flex items-center gap-6">
-                  <p className="text-[#5964E0]  text-[20px] font-bold">2</p>
-                  <p className="text-slate-400  text-[18px] w-full">
-                    Morbi interdum mollis sapien. Sed
-                  </p>
-                </div>
-              </div>
-
-              <div className=" text-white flex mb-4">
-                <div className="flex items-center gap-6">
-                  <p className="text-[#5964E0]  text-[20px] font-bold">3</p>
-                  <p className="text-slate-400  text-[18px] w-full">
-                    Morbi interdum mollis sapien. Sed
-                  </p>
-                </div>
-              </div>
-              <div className=" text-white flex mb-4">
-                <div className="flex items-center gap-6">
-                  <p className="text-[#5964E0]  text-[20px] font-bold">4</p>
-                  <p className="text-slate-400  text-[18px] w-full">
-                    Morbi interdum mollis sapien. Sed
-                  </p>
-                </div>
+                {job.jobAssistance.items.map((item, index) => (
+                  <div key={index} className="flex items-center gap-6">
+                    <p className="text-[#5964E0] text-[20px] font-bold">
+                      {index + 1}
+                    </p>
+                    <p className="text-slate-400 text-[18px] w-full">{item}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </main>

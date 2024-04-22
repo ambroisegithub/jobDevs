@@ -6,7 +6,7 @@ import { ThemeContext } from "../../ThemeContext";
 // Adjust the import path as necessary
 import { MdLightMode, MdDarkMode } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
-
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 function Home() {
@@ -15,7 +15,7 @@ function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/v1/job/jobs/")
+    fetch("https://devjobsbackend.onrender.com/api/v1/job/jobs/")
       .then((response) => response.json())
       .then((data) => {
         setJobs(data);
@@ -88,50 +88,57 @@ function Home() {
         </div>
         {/* Home */}
         <main className="pr-[30px] pl-[30px] mt-10 w-full p-2 lg:pr-[190px] lg:pl-[190px] md:pr-[70px] md:pl-[70px]">
+          {/* job divs */}
+
           <div className="flex flex-wrap pb-0">
             {loading ? (
               <p>Loading...</p>
             ) : (
               jobs.map((job) => (
-                <div
+                <Link
+                  to={`/${job.id}`}
                   key={job.id}
                   className="w-full md:w-1/2 lg:w-1/3 p-4 mb-10"
                 >
+                  {" "}
+                  {/* Wrap with Link */}
                   <div className="">
-                    <div className={`${cardClass} mb-4 h-full rounded-lg`}>
-                      <img
-                        src={job.logo}
-                        alt={`${job.company} logo`}
-                        className="flex justify-center text-center items-center bg-yellow-600 w-[70px] h-[70px] mb-2 ml-10 mt-[-30px] rounded-[15px] text-white font-bold"
-                      />
-                      <div className="p-6 pl-10">
-                        <div className="flex flex-row gap-3 text-sm text-slate-500 font-bold pb-4">
-                          <span className={textClass}>{job.postedAt}</span>
-                          <span>. {job.contract}</span>
-                        </div>
-                        <div>
-                          <h1
-                            className={`text-white font-bold text-[20px] pb-4 cursor-pointer ${textClass}`}
+                    <div className="">
+                      <div className={`${cardClass} mb-4 h-full rounded-lg`}>
+                        <img
+                          src={job.logo}
+                          alt={`${job.company} logo`}
+                          className="flex justify-center text-center items-center bg-yellow-600 w-[70px] h-[70px] mb-2 ml-10 mt-[-30px] rounded-[15px] text-white font-bold"
+                        />
+                        <div className="p-6 pl-10">
+                          <div className="flex flex-row gap-3 text-sm text-slate-500 font-bold pb-4">
+                            <span className={textClass}>{job.postedAt}</span>
+                            <span>. {job.contract}</span>
+                          </div>
+                          <div>
+                            <h1
+                              className={`text-white font-bold text-[20px] pb-4 cursor-pointer ${textClass}`}
+                            >
+                              {job.position}
+                            </h1>
+                          </div>
+                          <div>
+                            <p
+                              className={`text-slate-500 font-bold pb-4 cursor-pointer ${textClass}`}
+                            >
+                              {job.company}
+                            </p>
+                          </div>
+                          <div
+                            className={`text-[#5964E0] cursor-pointer ${textClass}`}
                           >
-                            {job.position}
-                          </h1>
-                        </div>
-                        <div>
-                          <p
-                            className={`text-slate-500 font-bold pb-4 cursor-pointer ${textClass}`}
-                          >
-                            {job.company}
-                          </p>
-                        </div>
-                        <div
-                          className={`text-[#5964E0] cursor-pointer ${textClass}`}
-                        >
-                          <p>{job.location}</p>
+                            <p>{job.location}</p>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))
             )}
           </div>
